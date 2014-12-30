@@ -5,37 +5,17 @@ reviewnum = []
 products = []
 
 def EvaluateItem():
-	"""Esta funcion permite agregar datos a las listas y diccionarios"""
-	try:
-		key = raw_input("Add item: ")
-		global keylow
-		keylow = key.lower()
-		sizeinp = len(key)
-		review(keylow)
-		if sizeinp > 0:
-			value = float(raw_input("Add price: "))
-			print articles
-			print "1"
-		else:
-			print "Ingresa algun dato"
-			print articles
-			print "2"
-			EvaluateItem()
-		articles[keylow] = value
-		print articles
-		print "3"
-		again()
-	except ValueError:
-		print "Ingresa correctamente los datos"
-		print articles
-		print ""
-		EvaluateItem()
+	print "------- Add to Inventory -------"
+	arti()
+	price()
+	again()
+
 
 def addItem():
 	print "Quieres cambiar valor"
 	
 def again():
-	"""Esta funcion pregunta si se quieren agregar mas articulos"""
+	"""Esta funcion pregunta si se quieren agregar mas articulos"""	
 	question=raw_input("Do you want to insert another article y/n ")
 	questionlower = question.lower()
 	if questionlower == "y" or questionlower == "yes" or questionlower == "y " or questionlower == "yes ":
@@ -50,23 +30,39 @@ def correctinput():
 	"""Esta funcion valua si las entradas son correctas"""
 	print "lol"
 
+def  arti():
+	key = raw_input("Add item: ")
+	global keylow
+	keylow = key.lower()
+	review(keylow)
+	if key == "":
+		print "Ingresa algun dato"
+		arti()
 
-def sellArt():
-	print "olakase"
+def price():
+	try:
+		value = float(raw_input("Add price: "))
+		articles[keylow] = value
+		print articles
+	except:
+		print "Ingresa correctamente los datos"
+		price()
+
+
 
 def review(key):
-	redefin = articles.has_key(key)
-	if redefin == True:
-		abc = raw_input("quieres modificar algun dato? ")
-		cde = abc.lower()
-		if cde == "y" or cde == "yes":
+	sameArt = articles.has_key(key)
+	if sameArt == True:
+		QuestionModif = raw_input("quieres modificar algun dato? ")
+		answer = QuestionModif.lower()
+		if answer == "y" or answer == "yes":
 			try:
 				value = float(raw_input("Add new price: "))
-				reviewnum = value
 				articles[keylow] = value
+				again ()
 			except:
 				print "ingresa algun dato"
-		elif cde == "no" or cde == "n":
+		elif answer == "no" or answer == "n":
 			again()
 		else:
 			print "que qieres que haga"
@@ -93,7 +89,7 @@ def menu():
 				print "valor no valido"
 				chooseOpt
 			elif chooseOpt == 3:
-				sys.exit(3)
+				sys.exit(0)
 		except ValueError:
 			print "Ingresa una opcion valida"
 menu()
